@@ -15,7 +15,7 @@ obj/
 appsettings.Development.json
 appsettings.json
 /__blobstorage__/*
-
+.vscode/*
 # Azurite queue
 __queuestorage__
 __azurite_db_queue__.json
