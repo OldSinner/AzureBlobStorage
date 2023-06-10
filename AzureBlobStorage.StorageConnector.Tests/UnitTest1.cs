@@ -1,18 +1,15 @@
-using AzureBlobStorage.StorageConnector.Interfaces;
+using AzureBlobStorage.StorageConnector.Configuration;
+using FluentAssertions;
 
 namespace AzureBlobStorage.StorageConnector.Tests;
 
 public class UnitTest1
 {
-    private readonly IAzureConnector azureConnector;
-
-    public UnitTest1(IAzureConnector azureConnector)
+    public UnitTest1()
     {
-        this.azureConnector = azureConnector ?? throw new ArgumentNullException(nameof(azureConnector));
     }
     [Fact]
     public void Test1()
     {
-
     }
 }

@@ -6,6 +6,7 @@ namespace AzureBlobStorage.StorageConnector.Services
     {
         public AzureConnector()
         {
+            
         }
     }
 }

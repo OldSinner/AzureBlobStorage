@@ -1,5 +1,8 @@
+using Azure.Identity;
+using AzureBlobStorage.StorageConnector.Configuration;
 using AzureBlobStorage.StorageConnector.Interfaces;
 using AzureBlobStorage.StorageConnector.Services;
+using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AzureBlobStorage.StorageConnector
@@ -8,7 +11,8 @@ namespace AzureBlobStorage.StorageConnector
     {
         public static void AddAzureConnector(this IServiceCollection services)
         {
-            services.AddTransient<IAzureConnector, AzureConnector>();
+            services.AddConfiguration();
+            services.AddSingleton<IAzureConnector, AzureConnector>();
         }
     }
 }
