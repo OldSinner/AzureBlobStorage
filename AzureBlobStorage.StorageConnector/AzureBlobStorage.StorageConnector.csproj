@@ -7,7 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AzureBlobStorage.StorageConnector.Configuration/AzureBlobStorage.StorageConnector.Configuration.csproj" />
+    <PackageReference Include="Azure.Data.Tables" Version="12.8.0" />
+    <ProjectReference Include="..\AzureBlobStorage.Configuration/AzureBlobStorage.Configuration.csproj" />
     <PackageReference Include="Azure.Identity" Version="1.9.0" />
     <PackageReference Include="Azure.Storage.Blobs" Version="12.16.0" />
     <PackageReference Include="Microsoft.Extensions.Azure" Version="1.6.3" />

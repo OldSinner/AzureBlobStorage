@@ -1,4 +1,4 @@
-namespace AzureBlobStorage.StorageConnector.Model
+namespace AzureBlobStorage.Model
 {
     public class AzureFileSequence
     {

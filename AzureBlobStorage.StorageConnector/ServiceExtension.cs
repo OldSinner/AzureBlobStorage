@@ -1,5 +1,5 @@
 using Azure.Identity;
-using AzureBlobStorage.StorageConnector.Configuration;
+using AzureBlobStorage.Configuration;
 using AzureBlobStorage.StorageConnector.Interfaces;
 using AzureBlobStorage.StorageConnector.Services;
 using Microsoft.Extensions.Azure;
@@ -17,6 +17,7 @@ namespace AzureBlobStorage.StorageConnector
                 builder.AddBlobServiceClient(services.BuildServiceProvider().GetRequiredService<AzureConfiguration>().ConnectionString);
             });
             services.AddSingleton<IAzureBlobFileService, AzureBlobFileService>();
+            services.AddSingleton<AzureBlobFileService>();
         }
     }
 }

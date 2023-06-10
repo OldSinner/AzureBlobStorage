@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AzureBlobStorage.StorageConnector.Configuration
+namespace AzureBlobStorage.Configuration
 {
     public static class ServiceExtension
     {

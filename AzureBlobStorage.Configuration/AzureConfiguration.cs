@@ -1,4 +1,4 @@
-namespace AzureBlobStorage.StorageConnector.Configuration
+namespace AzureBlobStorage.Configuration
 {
     public class AzureConfiguration
     {
