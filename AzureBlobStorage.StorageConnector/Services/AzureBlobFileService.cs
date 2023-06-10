@@ -35,6 +35,20 @@ namespace AzureBlobStorage.StorageConnector.Services
             return response.Value;
         }
 
+        public async Task<bool> DeleteFullBlobAsync(string filename)
+        {
+            var client = blobService.GetBlobContainerClient(configuration.ContainerName);
+            var blob = client.GetAppendBlobClient(filename);
+            var response = await blob.DeleteIfExistsAsync();
+            return response.Value;
+        }
+        public bool DeleteFullBlob(string filename)
+        {
+            var client = blobService.GetBlobContainerClient(configuration.ContainerName);
+            var blob = client.GetAppendBlobClient(filename);
+            var response = blob.DeleteIfExists();
+            return response.Value;
+        }
 
 
     }

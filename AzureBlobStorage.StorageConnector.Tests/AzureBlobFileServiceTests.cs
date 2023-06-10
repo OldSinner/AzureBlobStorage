@@ -1,5 +1,6 @@
 using System.Text;
 using AzureBlobStorage.StorageConnector.Interfaces;
+using FluentAssertions;
 
 namespace AzureBlobStorage.StorageConnector.Tests
 {
@@ -18,7 +19,20 @@ namespace AzureBlobStorage.StorageConnector.Tests
             var filename = "test.txt";
             var data = new MemoryStream(Encoding.UTF8.GetBytes("test"));
             var response = await azureBlobFileService.AddDataToContainerAsync(filename, data);
-            Assert.NotNull(response);
+            response.Should().NotBeNull();
+            var deleteResult = await azureBlobFileService.DeleteFullBlobAsync(filename);
+            deleteResult.Should().BeTrue();
         }
+        [Fact]
+        public void AddDataToContainerTest()
+        {
+            var filename = "test.txt";
+            var data = new MemoryStream(Encoding.UTF8.GetBytes("test"));
+            var response = azureBlobFileService.AddDataToContainer(filename, data);
+            Assert.NotNull(response);
+            var deleteResult = azureBlobFileService.DeleteFullBlob(filename);
+            deleteResult.Should().BeTrue();
+        }
+
     }
 }
