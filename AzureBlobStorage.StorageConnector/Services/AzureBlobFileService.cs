@@ -50,6 +50,22 @@ namespace AzureBlobStorage.StorageConnector.Services
             return response.Value;
         }
 
+        public async Task<BlobProperties> GetBlobInfoAsync(string filename)
+        {
+            var client = blobService.GetBlobContainerClient(configuration.ContainerName);
+            var blob = client.GetAppendBlobClient(filename);
+            var response = await blob.GetPropertiesAsync();
+            return response.Value;
+        }
+
+        public BlobProperties GetBlobInfo(string filename)
+        {
+            var client = blobService.GetBlobContainerClient(configuration.ContainerName);
+            var blob = client.GetAppendBlobClient(filename);
+            var response = blob.GetProperties();
+            return response.Value;
+        }
+
 
     }
 }

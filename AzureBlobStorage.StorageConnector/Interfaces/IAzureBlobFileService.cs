@@ -8,6 +8,8 @@ namespace AzureBlobStorage.StorageConnector.Interfaces
         public BlobAppendInfo AddDataToContainer(string filename, Stream data);
         public Task<bool> DeleteFullBlobAsync(string filename);
         public bool DeleteFullBlob(string filename);
+        public Task<BlobProperties> GetBlobInfoAsync(string filename);
+        public BlobProperties GetBlobInfo(string filename);
 
     }
 }

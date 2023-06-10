@@ -20,6 +20,8 @@ namespace AzureBlobStorage.StorageConnector.Tests
             var data = new MemoryStream(Encoding.UTF8.GetBytes("test"));
             var response = await azureBlobFileService.AddDataToContainerAsync(filename, data);
             response.Should().NotBeNull();
+            var propeties = await azureBlobFileService.GetBlobInfoAsync(filename);
+            propeties.ContentLength.Should().Be(4);
             var deleteResult = await azureBlobFileService.DeleteFullBlobAsync(filename);
             deleteResult.Should().BeTrue();
         }
@@ -29,7 +31,9 @@ namespace AzureBlobStorage.StorageConnector.Tests
             var filename = "test.txt";
             var data = new MemoryStream(Encoding.UTF8.GetBytes("test"));
             var response = azureBlobFileService.AddDataToContainer(filename, data);
-            Assert.NotNull(response);
+            response.Should().NotBeNull();
+            var propeties = azureBlobFileService.GetBlobInfo(filename);
+            propeties.ContentLength.Should().Be(4);
             var deleteResult = azureBlobFileService.DeleteFullBlob(filename);
             deleteResult.Should().BeTrue();
         }
