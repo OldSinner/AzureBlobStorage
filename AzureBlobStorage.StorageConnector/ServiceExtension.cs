@@ -12,7 +12,11 @@ namespace AzureBlobStorage.StorageConnector
         public static void AddAzureConnector(this IServiceCollection services)
         {
             services.AddConfiguration();
-            services.AddSingleton<IAzureConnector, AzureConnector>();
+            services.AddAzureClients(builder =>
+            {
+                builder.AddBlobServiceClient(services.BuildServiceProvider().GetRequiredService<AzureConfiguration>().ConnectionString);
+            });
+            services.AddSingleton<IAzureBlobFileService, AzureBlobFileService>();
         }
     }
 }

@@ -15,7 +15,7 @@ namespace AzureBlobStorage.StorageConnector.Configuration
             configuration.Bind("AzureConfiguration", azureConfig);
 
             services.AddSingleton<IConfiguration>(configuration);
-            services.AddSingleton < AzureConfiguration>(azureConfig);
+            services.AddSingleton<AzureConfiguration>(azureConfig);
         }
     }
 }
