@@ -12,6 +12,18 @@ namespace AzureBlobStorage.StorageConnector.Tests
         {
             this.azureBlobFileService = azureBlobFileService ?? throw new ArgumentNullException(nameof(azureBlobFileService));
         }
+        [Fact]
+        public async Task CreateContainerAsyncTest()
+        {
+            var action = async () => await azureBlobFileService.CreateContainerIfNotExistAsync();
+            await action.Should().NotThrowAsync();
+        }
+        [Fact]
+        public void CreateContainerTest()
+        {
+            var action = () => azureBlobFileService.CreateContainerIfNotExist();
+            action.Should().NotThrow();
+        }
 
         [Fact]
         public async Task AddDataToContainerAsyncTest()

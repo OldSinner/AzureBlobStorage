@@ -16,13 +16,16 @@ namespace AzureBlobStorage.StorageConnector.Tests
         [Fact]
         public async Task CreateTableIfNotExistsAsyncTest()
         {
-            await azureTableService.CreateTableIfNotExistsAsync();
+
+            var action = async () => await azureTableService.CreateTableIfNotExistsAsync();
+            await action.Should().NotThrowAsync();
         }
 
         [Fact]
         public void CreateTableIfNotExistsTest()
         {
-            azureTableService.CreateTableIfNotExists();
+            var action = () => azureTableService.CreateTableIfNotExists();
+            action.Should().NotThrow();
         }
 
         [Fact]

@@ -16,6 +16,28 @@ namespace AzureBlobStorage.StorageConnector.Services
             this.blobService = blobService ?? throw new ArgumentNullException(nameof(blobService));
             this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
+        public Task<BlobContainerInfo?> CreateContainerIfNotExistAsync() => CreateContainerIfNotExistAsync("");
+        public async Task<BlobContainerInfo?> CreateContainerIfNotExistAsync(string containerName = "")
+        {
+            if (containerName == "")
+            {
+                containerName = configuration.ContainerName;
+            }
+            var client = blobService.GetBlobContainerClient(containerName);
+            var response = await client.CreateIfNotExistsAsync();
+            return response?.Value;
+        }
+        public BlobContainerInfo? CreateContainerIfNotExist() => CreateContainerIfNotExist("");
+        public BlobContainerInfo? CreateContainerIfNotExist(string containerName)
+        {
+            if (containerName == "")
+            {
+                containerName = configuration.ContainerName;
+            }
+            var client = blobService.GetBlobContainerClient(containerName);
+            var response = client.CreateIfNotExists();
+            return response?.Value;
+        }
 
         public async Task<BlobAppendInfo> AddDataToContainerAsync(string filename, Stream data)
         {
