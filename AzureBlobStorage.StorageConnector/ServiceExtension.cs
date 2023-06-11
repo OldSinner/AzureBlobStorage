@@ -16,8 +16,9 @@ namespace AzureBlobStorage.StorageConnector
             {
                 builder.AddBlobServiceClient(services.BuildServiceProvider().GetRequiredService<AzureConfiguration>().ConnectionString);
             });
+            services.AddSingleton<ITableServiceClientFactory, TableServiceClientFactory>();
             services.AddSingleton<IAzureBlobFileService, AzureBlobFileService>();
-            services.AddSingleton<AzureBlobFileService>();
+            services.AddSingleton<AzureTableService>();
         }
     }
 }
