@@ -5,11 +5,11 @@ using AzureBlobStorage.StorageConnector.Interfaces;
 
 namespace AzureBlobStorage.StorageConnector.Services
 {
-    public class AzureTableService
+    public class AzureFileSequenceService
     {
         private readonly ITableServiceClientFactory tableServiceClientFactory;
 
-        public AzureTableService(ITableServiceClientFactory tableServiceClientFactory)
+        public AzureFileSequenceService(ITableServiceClientFactory tableServiceClientFactory)
         {
             this.tableServiceClientFactory = tableServiceClientFactory ?? throw new ArgumentNullException(nameof(tableServiceClientFactory));
         }
@@ -30,5 +30,12 @@ namespace AzureBlobStorage.StorageConnector.Services
             var client = tableServiceClientFactory.CreateTableClient();
             return await client.AddEntityAsync<AzureFileSequence>(fileSequence);
         }
+
+        public Azure.Response RegisterFileSequence(AzureFileSequence fileSequence)
+        {
+            var client = tableServiceClientFactory.CreateTableClient();
+            return client.AddEntity<AzureFileSequence>(fileSequence);
+        }
+
     }
 }

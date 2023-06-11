@@ -4,11 +4,11 @@ using FluentAssertions;
 
 namespace AzureBlobStorage.StorageConnector.Tests
 {
-    public class AzureTableServiceTests
+    public class AzureFileSequenceServiceTests
     {
-        private readonly AzureTableService azureTableService;
+        private readonly AzureFileSequenceService azureTableService;
 
-        public AzureTableServiceTests(AzureTableService azureTableService)
+        public AzureFileSequenceServiceTests(AzureFileSequenceService azureTableService)
         {
             this.azureTableService = azureTableService ?? throw new ArgumentNullException(nameof(azureTableService));
         }
@@ -37,6 +37,21 @@ namespace AzureBlobStorage.StorageConnector.Tests
                 PartitionKey = "Unit-Test"
             };
             var response = await azureTableService.RegisterFileSequenceAsync(fileSeq);
+            response.IsError.Should().BeFalse();
+        }
+
+        [Fact]
+        public void RegisterFileTest()
+        {
+            var fileSeq = new AzureFileSequence()
+            {
+                Filename = "test.txt",
+                Length = 5,
+                Offset = 5,
+                ETag = new Azure.ETag(),
+                PartitionKey = "Unit-Test"
+            };
+            var response = azureTableService.RegisterFileSequence(fileSeq);
             response.IsError.Should().BeFalse();
         }
     }
