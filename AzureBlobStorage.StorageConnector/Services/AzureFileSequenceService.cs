@@ -57,5 +57,18 @@ namespace AzureBlobStorage.StorageConnector.Services
             return fileSequence;
         }
 
+        public async Task<bool> DeleteFileSequenceAsync(string partitionKey, string rowKey)
+        {
+            var client = tableServiceClientFactory.CreateTableClient();
+            var fileSequence = await client.DeleteEntityAsync(partitionKey, rowKey);
+            return fileSequence.Status == 204;
+        }
+        public bool DeleteFileSequence(string partitionKey, string rowKey)
+        {
+            var client = tableServiceClientFactory.CreateTableClient();
+            var fileSequence = client.DeleteEntity(partitionKey, rowKey);
+            return fileSequence.Status == 204;
+        }
+
     }
 }

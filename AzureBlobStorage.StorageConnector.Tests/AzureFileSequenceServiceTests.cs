@@ -40,7 +40,9 @@ namespace AzureBlobStorage.StorageConnector.Tests
                 PartitionKey = "Unit-Test"
             };
             var response = await azureTableService.RegisterFileSequenceAsync(fileSeq);
+            var deleteResponse = await azureTableService.DeleteFileSequenceAsync(fileSeq.PartitionKey, fileSeq.RowKey);
             response.IsError.Should().BeFalse();
+            deleteResponse.Should().BeTrue();
         }
 
         [Fact]
@@ -55,7 +57,9 @@ namespace AzureBlobStorage.StorageConnector.Tests
                 PartitionKey = "Unit-Test"
             };
             var response = azureTableService.RegisterFileSequence(fileSeq);
+            var deleteResponse = azureTableService.DeleteFileSequence(fileSeq.PartitionKey, fileSeq.RowKey);
             response.IsError.Should().BeFalse();
+            deleteResponse.Should().BeTrue();
         }
 
         [Fact]
