@@ -28,7 +28,7 @@ namespace AzureBlobStorage.StorageConnector.Tests
         [Fact]
         public async Task AddDataToContainerAsyncTest()
         {
-            var filename = "test.txt";
+            var filename = "AddDataToContainerAsyncTest.txt";
             var data = new MemoryStream(Encoding.UTF8.GetBytes("test"));
             var response = await azureBlobFileService.AddDataToContainerAsync(filename, data);
             response.Should().NotBeNull();
@@ -40,7 +40,7 @@ namespace AzureBlobStorage.StorageConnector.Tests
         [Fact]
         public void AddDataToContainerTest()
         {
-            var filename = "test.txt";
+            var filename = "AddDataToContainerTest.txt";
             var data = new MemoryStream(Encoding.UTF8.GetBytes("test"));
             var response = azureBlobFileService.AddDataToContainer(filename, data);
             response.Should().NotBeNull();
@@ -49,6 +49,39 @@ namespace AzureBlobStorage.StorageConnector.Tests
             var deleteResult = azureBlobFileService.DeleteFullBlob(filename);
             deleteResult.Should().BeTrue();
         }
+        [Fact]
+        public async Task GetBlobDataAsync()
+        {
+            var filename = "ReadDataAsyncTest.txt";
+            var data = new MemoryStream(Encoding.UTF8.GetBytes("testabctest"));
+            var response = await azureBlobFileService.AddDataToContainerAsync(filename, data);
+
+            var readData = await azureBlobFileService.GetBlobDataAsync(filename, 4, 3);
+            var blobdata = Encoding.UTF8.GetString(readData);
+
+            var deleteResult = await azureBlobFileService.DeleteFullBlobAsync(filename);
+
+            blobdata.Should().Be("abc");
+            response.Should().NotBeNull();
+            deleteResult.Should().BeTrue();
+        }
+        [Fact]
+        public void GetBlobData()
+        {
+            var filename = "ReadDataAsyncTest.txt";
+            var data = new MemoryStream(Encoding.UTF8.GetBytes("testabctest"));
+            var response = azureBlobFileService.AddDataToContainer(filename, data);
+
+            var readData = azureBlobFileService.GetBlobData(filename, 4, 3);
+            var blobdata = Encoding.UTF8.GetString(readData);
+
+            var deleteResult = azureBlobFileService.DeleteFullBlob(filename);
+
+            blobdata.Should().Be("abc");
+            response.Should().NotBeNull();
+            deleteResult.Should().BeTrue();
+        }
+
 
     }
 }

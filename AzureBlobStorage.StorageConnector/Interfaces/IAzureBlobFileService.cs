@@ -14,6 +14,8 @@ namespace AzureBlobStorage.StorageConnector.Interfaces
         public bool DeleteFullBlob(string filename);
         public Task<BlobProperties> GetBlobInfoAsync(string filename);
         public BlobProperties GetBlobInfo(string filename);
+        public Task<byte[]> GetBlobDataAsync(string filename, int Offset, int Length);
+        public byte[] GetBlobData(string filename, int Offset, int Length);
 
     }
 }

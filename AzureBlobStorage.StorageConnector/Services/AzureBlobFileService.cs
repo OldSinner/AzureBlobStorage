@@ -88,6 +88,28 @@ namespace AzureBlobStorage.StorageConnector.Services
             return response.Value;
         }
 
+        public async Task<byte[]> GetBlobDataAsync(string filename, int Offset, int Length)
+        {
+            var client = blobService.GetBlobContainerClient(configuration.ContainerName);
+            var blob = client.GetAppendBlobClient(filename);
+            var response = await blob.OpenReadAsync();
+            response.Seek(Offset, SeekOrigin.Begin);
+            var buffer = new byte[Length];
+            await response.ReadAsync(buffer, 0, Length);
+            return buffer;
+        }
+        public byte[] GetBlobData(string filename, int Offset, int Length)
+        {
+            var client = blobService.GetBlobContainerClient(configuration.ContainerName);
+            var blob = client.GetAppendBlobClient(filename);
+            var response = blob.OpenRead();
+            response.Seek(Offset, SeekOrigin.Begin);
+            var buffer = new byte[Length];
+            response.Read(buffer, 0, Length);
+            return buffer;
+        }
+
 
     }
 }
+
