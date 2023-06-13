@@ -108,8 +108,12 @@ namespace AzureBlobStorage.StorageConnector.Services
             response.Read(buffer, 0, Length);
             return buffer;
         }
-
-
+        public IAsyncEnumerator<BlobItem> GetBlobAsyncEnumerator()
+        {
+            var client = blobService.GetBlobContainerClient(configuration.ContainerName);
+            var response = client.GetBlobsAsync();
+            return response.GetAsyncEnumerator();
+        }
     }
 }
 

@@ -81,6 +81,31 @@ namespace AzureBlobStorage.StorageConnector.Tests
             response.Should().NotBeNull();
             deleteResult.Should().BeTrue();
         }
+        [Fact]
+        public async Task GetBlobsAsyncEnum()
+        {
+            var filename = "GetBlobsAsyncEnum.txt";
+            var data = new MemoryStream(Encoding.UTF8.GetBytes("testabctest"));
+            var response = azureBlobFileService.AddDataToContainer(filename, data);
+
+            var enumerator = azureBlobFileService.GetBlobAsyncEnumerator();
+            await enumerator.MoveNextAsync();
+
+            var deleteResult = azureBlobFileService.DeleteFullBlob(filename);
+
+            enumerator.Current.Should().NotBeNull();
+            response.Should().NotBeNull();
+            deleteResult.Should().BeTrue();
+        }
+        [Fact]
+        public async Task PrintBlobs()
+        {
+            var enumerator = azureBlobFileService.GetBlobAsyncEnumerator();
+            while (await enumerator.MoveNextAsync())
+            {
+                enumerator.Current.Name.Should().NotBeNullOrEmpty();
+            }
+        }
 
 
     }

@@ -16,6 +16,7 @@ namespace AzureBlobStorage.StorageConnector.Interfaces
         public BlobProperties GetBlobInfo(string filename);
         public Task<byte[]> GetBlobDataAsync(string filename, int Offset, int Length);
         public byte[] GetBlobData(string filename, int Offset, int Length);
+        public IAsyncEnumerator<BlobItem> GetBlobAsyncEnumerator();
 
     }
 }
