@@ -31,10 +31,10 @@ namespace AzureBlobStorage.StorageConnector.Tests
             var filename = "AddDataToContainerAsyncTest.txt";
             var data = new MemoryStream(Encoding.UTF8.GetBytes("test"));
             var response = await azureBlobFileService.AddDataToContainerAsync(filename, data);
-            response.Should().NotBeNull();
             var propeties = await azureBlobFileService.GetBlobInfoAsync(filename);
-            propeties.ContentLength.Should().Be(4);
             var deleteResult = await azureBlobFileService.DeleteFullBlobAsync(filename);
+            response.Should().NotBeNull();
+            propeties.ContentLength.Should().Be(4);
             deleteResult.Should().BeTrue();
         }
         [Fact]
@@ -43,10 +43,10 @@ namespace AzureBlobStorage.StorageConnector.Tests
             var filename = "AddDataToContainerTest.txt";
             var data = new MemoryStream(Encoding.UTF8.GetBytes("test"));
             var response = azureBlobFileService.AddDataToContainer(filename, data);
-            response.Should().NotBeNull();
             var propeties = azureBlobFileService.GetBlobInfo(filename);
-            propeties.ContentLength.Should().Be(4);
             var deleteResult = azureBlobFileService.DeleteFullBlob(filename);
+            response.Should().NotBeNull();
+            propeties.ContentLength.Should().Be(4);
             deleteResult.Should().BeTrue();
         }
         [Fact]
@@ -97,16 +97,5 @@ namespace AzureBlobStorage.StorageConnector.Tests
             response.Should().NotBeNull();
             deleteResult.Should().BeTrue();
         }
-        [Fact]
-        public async Task PrintBlobs()
-        {
-            var enumerator = azureBlobFileService.GetBlobAsyncEnumerator();
-            while (await enumerator.MoveNextAsync())
-            {
-                enumerator.Current.Name.Should().NotBeNullOrEmpty();
-            }
-        }
-
-
     }
 }

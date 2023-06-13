@@ -5,9 +5,8 @@ namespace AzureBlobStorage.Model
 {
     public class AzureFileSequence : ITableEntity
     {
-        public required string Filename { get; set; } = string.Empty;
-        public required int Offset { get; set; }
-        public required int Length { get; set; }
+        public required long Offset { get; set; }
+        public required long Length { get; set; }
         public required string FileSeqName { get; set; } = string.Empty;
         public required string ClassName { get; set; } = string.Empty;
         public string PartitionKey { get; set; } = default!;

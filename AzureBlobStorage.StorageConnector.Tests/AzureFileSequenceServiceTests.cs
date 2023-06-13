@@ -33,7 +33,6 @@ namespace AzureBlobStorage.StorageConnector.Tests
         {
             var fileSeq = new AzureFileSequence()
             {
-                Filename = "test.txt",
                 Length = 5,
                 Offset = 5,
                 ETag = new Azure.ETag(),
@@ -54,7 +53,6 @@ namespace AzureBlobStorage.StorageConnector.Tests
         {
             var fileSeq = new AzureFileSequence()
             {
-                Filename = "test.txt",
                 Length = 5,
                 Offset = 5,
                 ETag = new Azure.ETag(),
