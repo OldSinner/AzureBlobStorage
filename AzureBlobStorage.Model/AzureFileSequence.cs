@@ -8,6 +8,8 @@ namespace AzureBlobStorage.Model
         public required string Filename { get; set; } = string.Empty;
         public required int Offset { get; set; }
         public required int Length { get; set; }
+        public required string FileSeqName { get; set; } = string.Empty;
+        public required string ClassName { get; set; } = string.Empty;
         public string PartitionKey { get; set; } = default!;
         public string RowKey { get; set; } = Guid.NewGuid().ToString();
         public DateTimeOffset? Timestamp { get; set; } = default!;

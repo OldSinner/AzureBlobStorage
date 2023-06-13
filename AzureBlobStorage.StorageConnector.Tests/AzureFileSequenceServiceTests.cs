@@ -1,14 +1,14 @@
 using AzureBlobStorage.Model;
-using AzureBlobStorage.StorageConnector.Services;
+using AzureBlobStorage.StorageConnector.Interfaces;
 using FluentAssertions;
 
 namespace AzureBlobStorage.StorageConnector.Tests
 {
     public class AzureFileSequenceServiceTests
     {
-        private readonly AzureFileSequenceService azureTableService;
+        private readonly IAzureFileSequenceService azureTableService;
 
-        public AzureFileSequenceServiceTests(AzureFileSequenceService azureTableService)
+        public AzureFileSequenceServiceTests(IAzureFileSequenceService azureTableService)
         {
             this.azureTableService = azureTableService ?? throw new ArgumentNullException(nameof(azureTableService));
         }
@@ -37,10 +37,14 @@ namespace AzureBlobStorage.StorageConnector.Tests
                 Length = 5,
                 Offset = 5,
                 ETag = new Azure.ETag(),
-                PartitionKey = "Unit-Test"
+                PartitionKey = "Unit-Test",
+                FileSeqName = "test.txt",
+                ClassName = "AzureBlobStorage.Model.AzureFileSequence"
             };
             var response = await azureTableService.RegisterFileSequenceAsync(fileSeq);
+            var getresponse = await azureTableService.GetFileSequenceAsync(fileSeq.PartitionKey, fileSeq.RowKey);
             var deleteResponse = await azureTableService.DeleteFileSequenceAsync(fileSeq.PartitionKey, fileSeq.RowKey);
+            getresponse.Should().NotBeNull();
             response.IsError.Should().BeFalse();
             deleteResponse.Should().BeTrue();
         }
@@ -54,10 +58,14 @@ namespace AzureBlobStorage.StorageConnector.Tests
                 Length = 5,
                 Offset = 5,
                 ETag = new Azure.ETag(),
-                PartitionKey = "Unit-Test"
+                PartitionKey = "Unit-Test",
+                FileSeqName = "test.txt",
+                ClassName = "AzureBlobStorage.Model.AzureFileSequence"
             };
             var response = azureTableService.RegisterFileSequence(fileSeq);
+            var getresponse = azureTableService.GetFileSequence(fileSeq.PartitionKey, fileSeq.RowKey);
             var deleteResponse = azureTableService.DeleteFileSequence(fileSeq.PartitionKey, fileSeq.RowKey);
+            getresponse.Should().NotBeNull();
             response.IsError.Should().BeFalse();
             deleteResponse.Should().BeTrue();
         }

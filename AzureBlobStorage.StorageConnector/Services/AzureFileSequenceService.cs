@@ -5,7 +5,7 @@ using AzureBlobStorage.StorageConnector.Interfaces;
 
 namespace AzureBlobStorage.StorageConnector.Services
 {
-    public class AzureFileSequenceService
+    public class AzureFileSequenceService : IAzureFileSequenceService
     {
         private const int MaxPerPage = 100;
         private readonly ITableServiceClientFactory tableServiceClientFactory;
@@ -55,6 +55,18 @@ namespace AzureBlobStorage.StorageConnector.Services
             var client = tableServiceClientFactory.CreateTableClient();
             var fileSequence = client.Query<AzureFileSequence>(x => x.PartitionKey == partitionKey, MaxPerPage);
             return fileSequence;
+        }
+
+        public async Task<AzureFileSequence> GetFileSequenceAsync(string partitionKey, string rowKey)
+        {
+            var client = tableServiceClientFactory.CreateTableClient();
+            return await client.GetEntityAsync<AzureFileSequence>(partitionKey, rowKey);
+        }
+
+        public AzureFileSequence GetFileSequence(string partitionKey, string rowKey)
+        {
+            var client = tableServiceClientFactory.CreateTableClient();
+            return client.GetEntity<AzureFileSequence>(partitionKey, rowKey);
         }
 
         public async Task<bool> DeleteFileSequenceAsync(string partitionKey, string rowKey)

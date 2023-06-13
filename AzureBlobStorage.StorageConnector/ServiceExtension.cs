@@ -18,7 +18,7 @@ namespace AzureBlobStorage.StorageConnector
             });
             services.AddSingleton<ITableServiceClientFactory, TableServiceClientFactory>();
             services.AddSingleton<IAzureBlobFileService, AzureBlobFileService>();
-            services.AddSingleton<AzureFileSequenceService>();
+            services.AddSingleton<IAzureFileSequenceService, AzureFileSequenceService>();
         }
     }
 }

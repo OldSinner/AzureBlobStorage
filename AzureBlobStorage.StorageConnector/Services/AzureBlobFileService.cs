@@ -39,69 +39,69 @@ namespace AzureBlobStorage.StorageConnector.Services
             return response?.Value;
         }
 
-        public async Task<BlobAppendInfo> AddDataToContainerAsync(string filename, Stream data)
+        public async Task<BlobAppendInfo> AddDataToContainerAsync(string fileSeqName, Stream data)
         {
             var client = blobService.GetBlobContainerClient(configuration.ContainerName);
-            var blob = client.GetAppendBlobClient(filename);
+            var blob = client.GetAppendBlobClient(fileSeqName);
             await blob.CreateIfNotExistsAsync();
             var response = await blob.AppendBlockAsync(data);
             return response.Value;
         }
 
-        public BlobAppendInfo AddDataToContainer(string filename, Stream data)
+        public BlobAppendInfo AddDataToContainer(string fileSeqName, Stream data)
         {
             var client = blobService.GetBlobContainerClient(configuration.ContainerName);
-            var blob = client.GetAppendBlobClient(filename);
+            var blob = client.GetAppendBlobClient(fileSeqName);
             blob.CreateIfNotExists();
             var response = blob.AppendBlock(data);
             return response.Value;
         }
 
-        public async Task<bool> DeleteFullBlobAsync(string filename)
+        public async Task<bool> DeleteFullBlobAsync(string fileSeqName)
         {
             var client = blobService.GetBlobContainerClient(configuration.ContainerName);
-            var blob = client.GetAppendBlobClient(filename);
+            var blob = client.GetAppendBlobClient(fileSeqName);
             var response = await blob.DeleteIfExistsAsync();
             return response.Value;
         }
-        public bool DeleteFullBlob(string filename)
+        public bool DeleteFullBlob(string fileSeqName)
         {
             var client = blobService.GetBlobContainerClient(configuration.ContainerName);
-            var blob = client.GetAppendBlobClient(filename);
+            var blob = client.GetAppendBlobClient(fileSeqName);
             var response = blob.DeleteIfExists();
             return response.Value;
         }
 
-        public async Task<BlobProperties> GetBlobInfoAsync(string filename)
+        public async Task<BlobProperties> GetBlobInfoAsync(string fileSeqName)
         {
             var client = blobService.GetBlobContainerClient(configuration.ContainerName);
-            var blob = client.GetAppendBlobClient(filename);
+            var blob = client.GetAppendBlobClient(fileSeqName);
             var response = await blob.GetPropertiesAsync();
             return response.Value;
         }
 
-        public BlobProperties GetBlobInfo(string filename)
+        public BlobProperties GetBlobInfo(string fileSeqName)
         {
             var client = blobService.GetBlobContainerClient(configuration.ContainerName);
-            var blob = client.GetAppendBlobClient(filename);
+            var blob = client.GetAppendBlobClient(fileSeqName);
             var response = blob.GetProperties();
             return response.Value;
         }
 
-        public async Task<byte[]> GetBlobDataAsync(string filename, int Offset, int Length)
+        public async Task<byte[]> GetBlobDataAsync(string fileSeqName, int Offset, int Length)
         {
             var client = blobService.GetBlobContainerClient(configuration.ContainerName);
-            var blob = client.GetAppendBlobClient(filename);
+            var blob = client.GetAppendBlobClient(fileSeqName);
             var response = await blob.OpenReadAsync();
             response.Seek(Offset, SeekOrigin.Begin);
             var buffer = new byte[Length];
             await response.ReadAsync(buffer, 0, Length);
             return buffer;
         }
-        public byte[] GetBlobData(string filename, int Offset, int Length)
+        public byte[] GetBlobData(string fileSeqName, int Offset, int Length)
         {
             var client = blobService.GetBlobContainerClient(configuration.ContainerName);
-            var blob = client.GetAppendBlobClient(filename);
+            var blob = client.GetAppendBlobClient(fileSeqName);
             var response = blob.OpenRead();
             response.Seek(Offset, SeekOrigin.Begin);
             var buffer = new byte[Length];
