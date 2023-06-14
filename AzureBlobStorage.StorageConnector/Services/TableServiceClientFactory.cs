@@ -15,7 +15,7 @@ namespace AzureBlobStorage.StorageConnector.Services
 
         public TableServiceClient CreateService()
         {
-            return new TableServiceClient(configuration.ConnectionString);
+            return new TableServiceClient(configuration.AzureTableConnectionString);
         }
 
         public TableClient CreateTableClient()
