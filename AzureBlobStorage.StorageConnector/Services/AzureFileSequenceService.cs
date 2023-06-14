@@ -38,25 +38,6 @@ namespace AzureBlobStorage.StorageConnector.Services
             return client.AddEntity<AzureFileSequence>(fileSequence);
         }
 
-        public async Task<IEnumerable<AzureFileSequence>> GetFileSequenceListAsync(string partitionKey)
-        {
-            var list = new List<AzureFileSequence>();
-            var client = tableServiceClientFactory.CreateTableClient();
-            var fileSequence = client.QueryAsync<AzureFileSequence>(x => x.PartitionKey == partitionKey, MaxPerPage);
-            await foreach (var l in fileSequence)
-            {
-                list.Add(l);
-            }
-            return list;
-        }
-
-        public IEnumerable<AzureFileSequence> GetFileSequenceList(string partitionKey)
-        {
-            var client = tableServiceClientFactory.CreateTableClient();
-            var fileSequence = client.Query<AzureFileSequence>(x => x.PartitionKey == partitionKey, MaxPerPage);
-            return fileSequence;
-        }
-
         public async Task<AzureFileSequence> GetFileSequenceAsync(string partitionKey, string rowKey)
         {
             var client = tableServiceClientFactory.CreateTableClient();

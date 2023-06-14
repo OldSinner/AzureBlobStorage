@@ -1,4 +1,6 @@
 using AzureBlobStorage.Configuration;
+using AzureBlobStorage.Interfaces;
+using AzureBlobStorage.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AzureBlobStorage.StorageConnector
@@ -9,7 +11,8 @@ namespace AzureBlobStorage.StorageConnector
         {
             services.AddConfiguration();
             services.AddAzureConnector();
-            
+            services.AddSingleton<IAzureFileService, AzureFileService>();
+
         }
     }
 }

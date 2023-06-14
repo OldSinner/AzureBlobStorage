@@ -68,18 +68,5 @@ namespace AzureBlobStorage.StorageConnector.Tests
             deleteResponse.Should().BeTrue();
         }
 
-        [Fact]
-        public async Task GestFileSequenceAsyncTest()
-        {
-            var response = await azureTableService.GetFileSequenceListAsync("Unit-Test");
-            response.Count().Should().BeGreaterThan(0);
-        }
-
-        [Fact]
-        public void GestFileSequenceTest()
-        {
-            var response = azureTableService.GetFileSequenceList("Unit-Test");
-            response.Count().Should().BeGreaterThan(0);
-        }
     }
 }

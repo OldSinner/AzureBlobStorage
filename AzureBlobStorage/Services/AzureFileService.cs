@@ -1,12 +1,12 @@
-using Azure.Storage.Blobs.Models;
 using AzureBlobStorage.Configuration;
+using AzureBlobStorage.Interfaces;
 using AzureBlobStorage.Model;
 using AzureBlobStorage.StorageConnector.Interfaces;
 using System.Text;
 using System.Text.Json;
 namespace AzureBlobStorage.Services
 {
-    public class AzureFileService
+    public class AzureFileService : IAzureFileService
     {
         private readonly IAzureFileSequenceService azureFileSequenceService;
         private readonly IAzureBlobFileService azureBlobFileService;
@@ -19,7 +19,7 @@ namespace AzureBlobStorage.Services
             this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
 
-        public async Task<string> AddFileToStorageAsync<T>(T obj)
+        public async Task<string> AddDataToStorageAsync<T>(T obj)
         {
             var text = JsonSerializer.Serialize(obj);
             var data = new MemoryStream(Encoding.UTF8.GetBytes(text));
@@ -55,6 +55,27 @@ namespace AzureBlobStorage.Services
                 throw new Exception("Failed to register file sequence");
             }
             return seq.RowKey;
+        }
+
+        public async Task<T> GetDataFromStorage<T>(string key)
+        {
+            var seq = await azureFileSequenceService.GetFileSequenceAsync(configuration.FilePartition, key);
+            if (seq == null)
+            {
+                throw new Exception("Failed to get file sequence");
+            }
+            var data = await azureBlobFileService.GetBlobDataAsync(seq.FileSeqName, (int)seq.Offset, (int)seq.Length);
+            if (data == null)
+            {
+                throw new Exception("Failed to get blob");
+            }
+            var text = Encoding.UTF8.GetString(data);
+            var newObject = JsonSerializer.Deserialize<T>(text);
+            if (newObject == null)
+            {
+                throw new Exception("Failed to deserialize object");
+            }
+            return newObject;
         }
     }
 }

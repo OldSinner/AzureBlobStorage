@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureBlobStorage", "AzureBl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureBlobStorage.Model", "AzureBlobStorage.Model\AzureBlobStorage.Model.csproj", "{C0622B7B-257D-452B-848B-121D02F9913C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureBlobStorage.Tests", "AzureBlobStorage.Tests\AzureBlobStorage.Tests.csproj", "{9EF8932F-F2D6-4E74-9C80-B402D5532BCF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +44,9 @@ Global
 		{C0622B7B-257D-452B-848B-121D02F9913C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0622B7B-257D-452B-848B-121D02F9913C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0622B7B-257D-452B-848B-121D02F9913C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EF8932F-F2D6-4E74-9C80-B402D5532BCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EF8932F-F2D6-4E74-9C80-B402D5532BCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EF8932F-F2D6-4E74-9C80-B402D5532BCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EF8932F-F2D6-4E74-9C80-B402D5532BCF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
