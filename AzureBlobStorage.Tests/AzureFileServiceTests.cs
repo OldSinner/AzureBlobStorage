@@ -26,7 +26,7 @@ namespace AzureBlobStorage.Tests
                 PropertySeven = Guid.NewGuid().ToString()
             };
             var response = await service.AddDataToStorageAsync<AzureTestFile>(testFile);
-            var result = await service.GetDataFromStorage<AzureTestFile>(response);
+            var result = await service.GetDataFromStorageAsync<AzureTestFile>(response);
 
             response.Should().NotBeNullOrEmpty();
             result.Should().NotBeNull();

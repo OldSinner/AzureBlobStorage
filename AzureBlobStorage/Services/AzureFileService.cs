@@ -57,7 +57,7 @@ namespace AzureBlobStorage.Services
             return seq.RowKey;
         }
 
-        public async Task<T> GetDataFromStorage<T>(string key)
+        public async Task<T> GetDataFromStorageAsync<T>(string key)
         {
             var seq = await azureFileSequenceService.GetFileSequenceAsync(configuration.FilePartition, key);
             if (seq == null)
